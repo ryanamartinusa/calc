@@ -17,8 +17,8 @@
         buyerPrem = document.getElementById('buyerPrem').value;
         let prem = ((buyerPrem * 1.2)/100)+1;
         console.log(prem);
-        document.getElementById('price').innerHTML = carValue * prem;
-        document.getElementById('buyprem').innerHTML = (carValue * prem) - prem;
+        document.getElementById('price').innerHTML = UKPound.format(carValue * prem);
+        document.getElementById('buyprem').innerHTML = UKPound.format((carValue * prem) - carValue);
     }
 </script>
 <form action="index.html" method="get">
