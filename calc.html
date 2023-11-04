@@ -1,1 +1,40 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>calculator</title>
+</head>
+<body style="background-color:#303030; color: white;">
+<script src="js/calculations.js"></script>
+<form action="index.html" method="get">
+    <label for="carValue">Car Value:</label>
+    <input type="text" id="carValue" name="carValue" placeholder="1000"><br>
+    <label for="buyerPrem">Buyers Premium:</label>
+    <input type="text" id="buyerPrem" name="buyerPrem" placeholder="7.5"><br><br>
+
+    <input type="radio" id="incVAT" name="vat" value="vat" checked><label for="incVAT">Include VAT</label><br>
+    <input type="radio" id="NoVAT" name="vat" value="novat"><label for="NoVAT">Exclude VAT</label><br><br>
+
+    <!--<input type="radio" id="ACA" name="auctionHouse" value="ACA"><label for="ACA">ACA</label><br>
+    <input type="radio" id="mathewsons" name="auctionHouse" value="mathewsons"><label for="mathewsons">Mathewsons</label><br>
+    <input type="radio" id="countingcars" name="auctionHouse" value="JavaScript"><label for="countingcars">Counting Cars</label><br>
+    <input type="radio" id="candc" name="auctionHouse" value="candc"><label for="candc">C & C</label><br>
+    <input type="radio" id="other" name="auctionHouse" value="other" checked><label for="other" >Other</label><br><br>-->
+
+    <select name="auctionHouse" id="auctionHouse" onchange="setBuyerPrem(getSelected('auctionHouse'));">
+        <option value="ACA">ACA</option>
+        <option value="mathewsons">Mathewsons</option>
+        <option value="collectingcars">Collecting Cars</option>
+        <option value="candc">C & C</option>
+        <option value="other" selected>Other</option>
+    </select><br><br>
+
+    <input type="button" onclick="calcBid()" value="Submit">
+</form>
+<br>
+
+<br>
+Buyers Premium: <div id="buyprem">£xxx</div><br>
+Total Value: <div id="price">£xxx</div><br>
+</body>
+</html>
