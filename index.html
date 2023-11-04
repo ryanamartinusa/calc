@@ -5,6 +5,31 @@
     <title>calculator</title>
 </head>
 <body>
-    hello
+<script>
+    let UKPound = new Intl.NumberFormat('en-GB', {
+        style: 'currency',
+        currency: 'GBP',
+    });
+    function calcBid() {
+        let carValue = 0;
+        let buyerPrem = 0;
+        carValue = document.getElementById('carValue').value;
+        buyerPrem = document.getElementById('buyerPrem').value;
+        let prem = ((buyerPrem * 1.2)/100)+1;
+        console.log(prem);
+        document.getElementById('price').innerHTML = UKPound.format(carValue * prem);
+        document.getElementById('buyprem').innerHTML = UKPound.format((carValue * prem) - prem);
+    }
+</script>
+<form action="index.html" method="get">
+    <label for="carValue">Car Value:</label>
+    <input type="text" id="carValue" name="carValue" placeholder="1000"><br>
+    <label for="buyerPrem">Buyers Premium:</label>
+    <input type="text" id="buyerPrem" name="buyerPrem" placeholder="7.5"><br><br>
+    <input type="button" onclick="calcBid()" value="Submit">
+</form>
+<br>
+Buyers Premium: <div id="buyprem">£xxx</div><br>
+Total Value: <div id="price">£xxx</div><br>
 </body>
 </html>
