@@ -39,7 +39,7 @@ function setBuyerPrem(selectedAuctionHouse) {
             document.getElementById('buyerPrem').value = 10;
             document.getElementById('buyerPrem').disabled = false;
             break;
-        case "countingcars":
+        case "collectingcars":
             document.getElementById('buyerPrem').value = 6;
             document.getElementById('buyerPrem').disabled = false;
             break;
@@ -108,7 +108,7 @@ function mathewsons(carValue, buyerPrem) {
     return ret;
 }
 
-function countingcars(carValue, buyerPrem) {
+function collectingcars(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
     let ret = array();
     if(findChecked("vat") == "vat") {
