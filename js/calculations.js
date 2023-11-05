@@ -114,7 +114,7 @@ function bonhams(carValue, buyerPrem) {
         prem = ((buyerPrem * 1.2)/100)+1;
     }
     ret[0] = carValue * prem;
-    ret[1] = buyerPrem;
+    ret[1] = prem;
 
     return ret;
 }
@@ -133,7 +133,7 @@ function ACA(carValue, buyerPrem) {
         prem = ((buyerPrem * 1.2)/100)+1;
     }
     ret[0] = carValue * prem;
-    ret[1] = buyerPrem;
+    ret[1] = prem;
 
     return ret;
 }
@@ -189,7 +189,7 @@ function collectingcars(carValue, buyerPrem) {
     }
 
     ret[0] = carValue * prem;
-    ret[1] = buyerPrem;
+    ret[1] = prem;
 
     return ret;
 }
@@ -205,7 +205,7 @@ function other(carValue, buyerPrem) {
     }
 
     ret[0] = carValue * prem;
-    ret[1] = buyerPrem;
+    ret[1] = prem;
 
     return ret;
 }
