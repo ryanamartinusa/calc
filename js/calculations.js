@@ -19,6 +19,34 @@ function calcBid() {
     document.getElementById('buyprem').innerHTML = UKPound.format((carValue * prem) - carValue);
 }
 
+function calcBidBeta() {
+    //let carValue = 0;
+    //let buyerPrem = 0;
+    let carValue = document.getElementById('carValue').value;
+    let buyerPrem = document.getElementById('buyerPrem').value;
+    let prem = "";
+
+    switch(getSelected("auctionHouse")) {
+        case "ACA":
+            break;
+        case "mathewsons":
+            break;
+        case "collectingcars":
+            break;
+        case "candc":
+            break;
+        case "bonhams":
+            break;
+        case "other":
+            break;
+    }
+
+    console.log(findChecked("vat"));
+    console.log(getSelected("auctionHouse"));
+    document.getElementById('price').innerHTML = UKPound.format(carValue * prem);
+    document.getElementById('buyprem').innerHTML = UKPound.format((carValue * prem) - carValue);
+}
+
 function findChecked(elementName) {
     let radio= document.getElementsByName(elementName);
     let checked = "";
@@ -47,6 +75,10 @@ function setBuyerPrem(selectedAuctionHouse) {
             document.getElementById('buyerPrem').value = 0;
             document.getElementById('buyerPrem').disabled = true;
             break;
+        case "bonhams":
+            document.getElementById('buyerPrem').value = 7;
+            document.getElementById('buyerPrem').disabled = true;
+            break;
         default:
             document.getElementById('buyerPrem').disabled = false;
             break;
@@ -55,6 +87,24 @@ function setBuyerPrem(selectedAuctionHouse) {
 
 function getSelected(elementName) {
     return document.getElementById(elementName).value;
+}
+
+function bonhams(carValue, buyerPrem) {
+    //returns array(TOTAL, BUYERS_PREMIUM)
+    let ret = array();
+    let bpTotal = carValue * prem;
+    if(bpTotal < 700) {
+        bpTotal = 700;
+    }
+    if(findChecked("vat") == "vat") {
+        let prem = (buyerPrem/100)+1;
+    } else {
+        let prem = ((buyerPrem * 1.2)/100)+1;
+    }
+    ret[0] = carValue * prem;
+    ret[1] = prem;
+
+    return ret;
 }
 
 function ACA(carValue, buyerPrem) {
