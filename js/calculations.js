@@ -104,15 +104,16 @@ function bonhams(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
     let ret = [];
     let bpTotal = carValue * buyerPrem;
+    let prem = 0;
     if(bpTotal < 700) {
         bpTotal = 700;
     }
     if(findChecked("vat") == "vat") {
-        let prem = (buyerPrem/100)+1;
+        prem = (buyerPrem/100)+1;
     } else {
-        let prem = ((buyerPrem * 1.2)/100)+1;
+        prem = ((buyerPrem * 1.2)/100)+1;
     }
-    ret[0] = carValue * buyerPrem;
+    ret[0] = carValue * prem;
     ret[1] = buyerPrem;
 
     return ret;
@@ -122,15 +123,16 @@ function ACA(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
     let ret = [];
     let bpTotal = carValue * buyerPrem;
+    let prem = 0;
     if(bpTotal < 192) {
         bpTotal = 192;
     }
     if(findChecked("vat") == "vat") {
-        let prem = (buyerPrem/100)+1;
+        prem = (buyerPrem/100)+1;
     } else {
-        let prem = ((buyerPrem * 1.2)/100)+1;
+        prem = ((buyerPrem * 1.2)/100)+1;
     }
-    ret[0] = carValue * buyerPrem;
+    ret[0] = carValue * prem;
     ret[1] = buyerPrem;
 
     return ret;
@@ -179,13 +181,14 @@ function mathewsons(carValue, buyerPrem, online = false) {
 function collectingcars(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
     let ret = [];
+    let prem = 0;
     if(findChecked("vat") == "vat") {
-        let prem = (buyerPrem/100)+1;
+        prem = (buyerPrem/100)+1;
     } else {
-        let prem = ((buyerPrem * 1.2)/100)+1;
+        prem = ((buyerPrem * 1.2)/100)+1;
     }
 
-    ret[0] = carValue * buyerPrem;
+    ret[0] = carValue * prem;
     ret[1] = buyerPrem;
 
     return ret;
@@ -194,13 +197,14 @@ function collectingcars(carValue, buyerPrem) {
 function other(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
     let ret = [];
+    let prem = 0;
     if(findChecked("vat") == "vat") {
-        let prem = (buyerPrem/100)+1;
+        prem = (buyerPrem/100)+1;
     } else {
-        let prem = ((buyerPrem * 1.2)/100)+1;
+        prem = ((buyerPrem * 1.2)/100)+1;
     }
 
-    ret[0] = carValue * buyerPrem;
+    ret[0] = carValue * prem;
     ret[1] = buyerPrem;
 
     return ret;
