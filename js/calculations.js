@@ -22,20 +22,30 @@ function calcBid() {
 function calcBidBeta() {
     //let carValue = 0;
     //let buyerPrem = 0;
+    let result = [];
     let carValue = document.getElementById('carValue').value;
     let buyerPrem = document.getElementById('buyerPrem').value;
     let prem = "";
 
     switch(getSelected("auctionHouse")) {
         case "ACA":
+            result = ACA(carValue, buyerPrem);
+            break;
+        case "mathewsons_online":
+            result = mathewsons(carValue, buyerPrem, true);
             break;
         case "mathewsons":
+            result = mathewsons(carValue, buyerPrem, false);
             break;
         case "collectingcars":
+            result = collectingcars(carValue, buyerPrem);
             break;
         case "candc":
+            result[0] = carValue * prem;
+            result[1] = (carValue * prem) - carValue;
             break;
         case "bonhams":
+            result = bonhams(carValue, buyerPrem);
             break;
         case "other":
             break;
@@ -43,8 +53,8 @@ function calcBidBeta() {
 
     console.log(findChecked("vat"));
     console.log(getSelected("auctionHouse"));
-    document.getElementById('price').innerHTML = UKPound.format(carValue * prem);
-    document.getElementById('buyprem').innerHTML = UKPound.format((carValue * prem) - carValue);
+    document.getElementById('price').innerHTML = UKPound.format(result[0]);
+    document.getElementById('buyprem').innerHTML = UKPound.format(result[1]);
 }
 
 function findChecked(elementName) {
@@ -63,6 +73,7 @@ function setBuyerPrem(selectedAuctionHouse) {
             document.getElementById('buyerPrem').value = 8;
             document.getElementById('buyerPrem').disabled = false;
             break;
+        case "mathewsons_online":
         case "mathewsons":
             document.getElementById('buyerPrem').value = 10;
             document.getElementById('buyerPrem').disabled = false;
@@ -77,7 +88,7 @@ function setBuyerPrem(selectedAuctionHouse) {
             break;
         case "bonhams":
             document.getElementById('buyerPrem').value = 7;
-            document.getElementById('buyerPrem').disabled = true;
+            document.getElementById('buyerPrem').disabled = false;
             break;
         default:
             document.getElementById('buyerPrem').disabled = false;
@@ -91,8 +102,8 @@ function getSelected(elementName) {
 
 function bonhams(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
-    let ret = array();
-    let bpTotal = carValue * prem;
+    let ret = [];
+    let bpTotal = carValue * buyerPrem;
     if(bpTotal < 700) {
         bpTotal = 700;
     }
@@ -101,16 +112,16 @@ function bonhams(carValue, buyerPrem) {
     } else {
         let prem = ((buyerPrem * 1.2)/100)+1;
     }
-    ret[0] = carValue * prem;
-    ret[1] = prem;
+    ret[0] = carValue * buyerPrem;
+    ret[1] = buyerPrem;
 
     return ret;
 }
 
 function ACA(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
-    let ret = array();
-    let bpTotal = carValue * prem;
+    let ret = [];
+    let bpTotal = carValue * buyerPrem;
     if(bpTotal < 192) {
         bpTotal = 192;
     }
@@ -119,15 +130,16 @@ function ACA(carValue, buyerPrem) {
     } else {
         let prem = ((buyerPrem * 1.2)/100)+1;
     }
-    ret[0] = carValue * prem;
-    ret[1] = prem;
+    ret[0] = carValue * buyerPrem;
+    ret[1] = buyerPrem;
 
     return ret;
 }
 
-function mathewsons(carValue, buyerPrem) {
+function mathewsons(carValue, buyerPrem, online = false) {
     //returns array(TOTAL, BUYERS_PREMIUM)
-    let ret = array();
+    let ret = [];
+    let online_fee = 0;
     let prem1 = 0;
     let prem2 = 0;
     let prem3 = 0;
@@ -152,7 +164,13 @@ function mathewsons(carValue, buyerPrem) {
         r = (20000 * prem2) + ((carValue - 20000) * prem3);
     }
 
-    ret[0] = r;
+    if (online) {
+        online_fee = (r - carValue) * 1.21;
+        console.log(online_fee);
+        console.log(r);
+    }
+
+    ret[0] = r + online_fee;
     ret[1] = r - carValue;
 
     return ret;
@@ -160,30 +178,30 @@ function mathewsons(carValue, buyerPrem) {
 
 function collectingcars(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
-    let ret = array();
+    let ret = [];
     if(findChecked("vat") == "vat") {
         let prem = (buyerPrem/100)+1;
     } else {
         let prem = ((buyerPrem * 1.2)/100)+1;
     }
 
-    ret[0] = carValue * prem;
-    ret[1] = prem;
+    ret[0] = carValue * buyerPrem;
+    ret[1] = buyerPrem;
 
     return ret;
 }
 
 function other(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
-    let ret = array();
+    let ret = [];
     if(findChecked("vat") == "vat") {
         let prem = (buyerPrem/100)+1;
     } else {
         let prem = ((buyerPrem * 1.2)/100)+1;
     }
 
-    ret[0] = carValue * prem;
-    ret[1] = prem;
+    ret[0] = carValue * buyerPrem;
+    ret[1] = buyerPrem;
 
     return ret;
 }
