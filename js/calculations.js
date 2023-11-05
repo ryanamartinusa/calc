@@ -48,6 +48,7 @@ function calcBidBeta() {
             result = bonhams(carValue, buyerPrem);
             break;
         case "other":
+            result = other(carValue, buyerPrem);
             break;
     }
 
@@ -105,17 +106,21 @@ function bonhams(carValue, buyerPrem) {
     let ret = [];
     let prem = 0;
     let premTotal = 0;
+    console.log(findChecked("vat"));
     if(findChecked("vat") == "vat") {
-        prem = (buyerPrem/100)+1;
-    } else {
         prem = ((buyerPrem * 1.2)/100)+1;
+    } else {
+        prem = (buyerPrem/100)+1;
     }
-    if(prem < 700) {
+
+    let pTot = (carValue * prem) - carValue;
+    console.log(pTot);
+    if(pTot < 700) {
         premTotal = 700;
     } else {
-        premTotal = prem;
+        premTotal = pTot;
     }
-    ret[0] = carValue * prem;
+    ret[0] = parseFloat(carValue) + premTotal;
     ret[1] = premTotal;
 
     return ret;
@@ -124,18 +129,24 @@ function bonhams(carValue, buyerPrem) {
 function ACA(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
     let ret = [];
-    let bpTotal = carValue * buyerPrem;
     let prem = 0;
-    if(bpTotal < 192) {
-        bpTotal = 192;
-    }
+    let premTotal = 0;
     if(findChecked("vat") == "vat") {
-        prem = (buyerPrem/100)+1;
-    } else {
         prem = ((buyerPrem * 1.2)/100)+1;
+    } else {
+        prem = (buyerPrem/100)+1;
     }
-    ret[0] = carValue * prem;
-    ret[1] = prem;
+
+    let pTot = (carValue * prem) - carValue;
+
+    if(pTot < 192) {
+        premTotal = 192;
+    } else {
+        premTotal = pTot;
+    }
+    console.log(prem);
+    ret[0] = parseFloat(carValue) + premTotal;
+    ret[1] = premTotal;
 
     return ret;
 }
@@ -191,7 +202,7 @@ function collectingcars(carValue, buyerPrem) {
     }
 
     ret[0] = carValue * prem;
-    ret[1] = prem;
+    ret[1] = ret[0] - carValue;
 
     return ret;
 }
@@ -207,7 +218,7 @@ function other(carValue, buyerPrem) {
     }
 
     ret[0] = carValue * prem;
-    ret[1] = prem;
+    ret[1] = ret[0] - carValue;
 
     return ret;
 }
