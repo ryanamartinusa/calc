@@ -103,15 +103,14 @@ function getSelected(elementName) {
 function bonhams(carValue, buyerPrem) {
     //returns array(TOTAL, BUYERS_PREMIUM)
     let ret = [];
-    let bpTotal = carValue * buyerPrem;
     let prem = 0;
-    if(bpTotal < 700) {
-        bpTotal = 700;
-    }
     if(findChecked("vat") == "vat") {
         prem = (buyerPrem/100)+1;
     } else {
         prem = ((buyerPrem * 1.2)/100)+1;
+    }
+    if(prem < 700) {
+        prem = 700;
     }
     ret[0] = carValue * prem;
     ret[1] = prem;
